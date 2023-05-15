@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :market do
+  factory :vendor do
     name { Faker::Commerce.vendor }
     description { Faker::Marketing.buzzwords }
     contact_name { Faker::Name.first_name }
