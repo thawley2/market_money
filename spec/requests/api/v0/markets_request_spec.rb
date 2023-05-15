@@ -2,20 +2,24 @@ require 'rails_helper'
 
 RSpec.describe 'Markets API' do
   before(:each) do
-    create_list(:market, 5)
+    test_data
   end
 
   describe 'Sends markets' do
     it 'Sends a list of all markets' do
       get '/api/v0/markets'
 
+      expect(response).to be_successful
+      
       json = JSON.parse(response.body, symbolize_names: true)
       
       expect(json[:data]).to be_an Array
-      expect(json[:data].count).to eq(5)
+      expect(json[:data].count).to eq(4)
+
       json[:data].each do |market|
         expect(market).to have_key(:id)
         expect(market).to have_key(:type)
+        expect(market).to have_key(:attributes)
         expect(market[:attributes]).to be_a Hash
         expect(market[:attributes]).to have_key(:name)
         expect(market[:attributes]).to have_key(:street)
