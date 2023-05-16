@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :error_handling
-# rescue_from ActiveRecord::RecordInvalid, with: 
 
   private
     def error_handling(error)
