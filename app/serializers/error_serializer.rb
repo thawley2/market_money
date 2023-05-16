@@ -8,5 +8,9 @@ class ErrorSerializer
           ]
         }
   end
-#another method that joins error by (,) for create
+  
+  def self.new_serialize(error)
+    join_error = 'Validation failed: ' + error.join(', ')
+    serialize(join_error)
+  end
 end
