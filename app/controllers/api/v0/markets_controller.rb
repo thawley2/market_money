@@ -1,5 +1,4 @@
 class Api::V0::MarketsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :no_record
   
   def index
     render json: MarketSerializer.new(Market.all)
@@ -10,14 +9,7 @@ class Api::V0::MarketsController < ApplicationController
   end
 
   private
-    def no_record
-      error_message = { 
-        errors: [
-          {
-            detail: "Couldn't find Market with 'id'=#{params[:id]}"
-            }
-            ]
-          }
-      render json: error_message, status: 404
-    end
+  def no_record
+    render json: ErrorSerializer.new(params[:id]).serialize, status: 404
+  end
 end
