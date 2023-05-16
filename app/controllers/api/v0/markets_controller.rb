@@ -18,6 +18,6 @@ class Api::V0::MarketsController < ApplicationController
             }
             ]
           }
-      render json: error_message
+      render json: error_message, status: 404
     end
 end
