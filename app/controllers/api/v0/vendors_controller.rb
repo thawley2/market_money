@@ -1,16 +1,25 @@
 class Api::V0::VendorsController < ApplicationController
-  before_action :find_market
   
-def index
-    render json: VendorSerializer.new(@market.vendors)
+  def index
+    begin
+      market = Market.find(params[:market_id])
+      render json: VendorSerializer.new(market.vendors)
+    rescue ActiveRecord::RecordNotFound => exception
+      error_handling(exception)
+    end
+  end
+
+  def show
+    begin
+      vendor = Vendor.find(params[:id])
+      render json: VendorSerializer.new(Vendor.find(params[:id]))
+    rescue ActiveRecord::RecordNotFound => exception
+      error_handling(exception)
+    end
   end
 
   private
-    def find_market
-      @market = Market.find(params[:market_id])
-    end
-
-    def no_record
-      render json: ErrorSerializer.new(params[:market_id]).serialize, status: 404
+    def error_handling(error)
+      render json: ErrorSerializer.serialize(error), status: 404
     end
 end
