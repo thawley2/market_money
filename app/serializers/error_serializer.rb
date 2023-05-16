@@ -8,4 +8,5 @@ class ErrorSerializer
           ]
         }
   end
+#another method that joins error by (,) for create
 end
