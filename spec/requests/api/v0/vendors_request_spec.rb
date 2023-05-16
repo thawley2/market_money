@@ -43,12 +43,59 @@ RSpec.describe 'Vendors API' do
 
       json = JSON.parse(response.body, symbolize_names: true)
 
+      expect(json).to be_a Hash
       expect(json).to have_key(:errors)
       expect(json[:errors]).to be_an Array
       expect(json[:errors][0]).to be_a Hash
       expect(json[:errors][0]).to have_key(:detail)
       expect(json[:errors][0][:detail]).to be_a String
       expect(json[:errors][0][:detail]).to eq("Couldn't find Market with 'id'=1000000")
+    end
+  end
+
+  describe 'Send Vendor' do
+    it 'Can send a single vendor' do
+      get "/api/v0/vendors/#{@vendor1.id}"
+
+      expect(response).to be_successful
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json).to be_a Hash
+      expect(json).to have_key(:data)
+      expect(json[:data]).to be_a Hash
+      expect(json[:data]).to have_key(:id)
+      expect(json[:data]).to have_key(:type)
+      expect(json[:data]).to have_key(:attributes)
+      expect(json[:data][:attributes]).to have_key(:name)
+      expect(json[:data][:attributes]).to have_key(:description)
+      expect(json[:data][:attributes]).to have_key(:contact_name)
+      expect(json[:data][:attributes]).to have_key(:contact_phone)
+      expect(json[:data][:attributes]).to have_key(:credit_accepted)
+
+      json_attr = json[:data][:attributes]
+
+      expect(json_attr[:name]).to eq(@vendor1.name)
+      expect(json_attr[:description]).to eq(@vendor1.description)
+      expect(json_attr[:contact_name]).to eq(@vendor1.contact_name)
+      expect(json_attr[:contact_phone]).to eq(@vendor1.contact_phone)
+      expect(json_attr[:credit_accepted]).to eq(@vendor1.credit_accepted)
+    end
+
+    it 'Can send an error message if no vendor was found' do
+      get '/api/v0/vendors/1000000'
+
+      expect(response).to_not be_successful
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json).to be_a Hash
+      expect(json).to have_key(:errors)
+      expect(json[:errors]).to be_an Array
+      expect(json[:errors][0]).to be_a Hash
+      expect(json[:errors][0]).to have_key(:detail)
+      expect(json[:errors][0][:detail]).to be_a String
+      expect(json[:errors][0][:detail]).to eq("Couldn't find Vendor with 'id'=1000000")
     end
   end
 end
