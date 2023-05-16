@@ -1,13 +1,9 @@
 class ErrorSerializer
-  def initialize(id)
-    @id = id
-  end
-
-  def serialize
+  def self.serialize(error)
     { 
       errors: [
         {
-          detail: "Couldn't find Market with 'id'=#{@id}"
+          detail: error
           }
           ]
         }
