@@ -11,7 +11,7 @@ RSpec.describe Market, type: :model do
   end
 
   describe 'instance methods' do
-    describe '#count_of_vendors' do
+    describe '#vendor_count' do
       it 'returns the number of vendors linked to a market' do
         expect(@market1.vendor_count).to eq(4)
         expect(@market2.vendor_count).to eq(1)
