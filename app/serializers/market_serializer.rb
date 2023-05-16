@@ -1,7 +1,6 @@
 class MarketSerializer
   include JSONAPI::Serializer
-  attributes :id, 
-             :name, 
+  attributes :name, 
              :street, 
              :city, 
              :county, 
