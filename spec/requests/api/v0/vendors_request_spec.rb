@@ -98,4 +98,39 @@ RSpec.describe 'Vendors API' do
       expect(json[:errors][0][:detail]).to eq("Couldn't find Vendor with 'id'=1000000")
     end
   end
+
+  describe 'Create Vendor' do
+    it 'Can create a vendor' do
+      vendor_params = {
+        "name": "Buzzy Bees",
+        "description": "local honey and wax products",
+        "contact_name": "Berly Couwer",
+        "contact_phone": "8389928383",
+        "credit_accepted": false
+        }
+      headers = {"CONTENT_TYPE" => "application/json"}
+      post "/api/v0/vendors", headers: headers, params: JSON.generate(vendor: vendor_params)
+        
+      expect(response).to be_successful
+      expect(response.status).to eq 201
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json).to be_a Hash
+      expect(json).to have_key(:data)
+      expect(json[:data]).to have_key(:id)
+      expect(json[:data]).to have_key(:type)
+      expect(json[:data]).to have_key(:attributes)
+      expect(json[:data][:attributes]).to be_a Hash
+
+      json_attr = json[:data][:attributes]
+
+      expect(json_attr[:name]).to eq(Vendor.last.name)
+      expect(json_attr[:description]).to eq(Vendor.last.description)
+      expect(json_attr[:contact_name]).to eq(Vendor.last.contact_name)
+      expect(json_attr[:contact_phone]).to eq(Vendor.last.contact_phone)
+      expect(json_attr[:credit_accepted]).to eq(Vendor.last.credit_accepted)
+
+    end
+  end
 end
