@@ -4,10 +4,10 @@ class ApplicationController < ActionController::API
 
   private
     def error_handling(error)
-      render json: ErrorSerializer.serialize(error), status: 404
+      render json: ErrorSerializer.serialize(error), status: :not_found
     end
 
     def new_error_handling(error)
-      render json: ErrorSerializer.serialize(error), status: 400
+      render json: ErrorSerializer.serialize(error), status: :bad_request
     end
 end

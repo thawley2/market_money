@@ -4,7 +4,7 @@ def test_data
   @market3 = create(:market)
   @market4 = create(:market)
 
-  @vendor1 = create(:vendor)
+  @vendor1 = create(:vendor, credit_accepted: true)
   @vendor2 = create(:vendor)
   @vendor3 = create(:vendor)
   @vendor4 = create(:vendor)
