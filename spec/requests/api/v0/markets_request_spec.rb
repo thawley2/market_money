@@ -11,12 +11,12 @@ RSpec.describe 'Markets API' do
 
       expect(response).to be_successful
 
-      json = JSON.parse(response.body, symbolize_names: true)
+      markets_deets = JSON.parse(response.body, symbolize_names: true)
       
-      expect(json[:data]).to be_an Array
-      expect(json[:data].count).to eq(4)
+      expect(markets_deets[:data]).to be_an Array
+      expect(markets_deets[:data].count).to eq(4)
 
-      json[:data].each do |market|
+      markets_deets[:data].each do |market|
         expect(market).to have_key(:id)
         expect(market).to have_key(:type)
         expect(market).to have_key(:attributes)
@@ -50,46 +50,46 @@ RSpec.describe 'Markets API' do
       
       expect(response).to be_successful
       
-      json = JSON.parse(response.body, symbolize_names: true)
+      market_deets = JSON.parse(response.body, symbolize_names: true)
       
-      expect(json[:data]).to be_a Hash
+      expect(market_deets[:data]).to be_a Hash
       
-      expect(json[:data]).to have_key(:id)
-      expect(json[:data]).to have_key(:type)
-      expect(json[:data]).to have_key(:attributes)
-      expect(json[:data][:attributes]).to be_a Hash
-      expect(json[:data][:attributes]).to have_key(:name)
-      expect(json[:data][:attributes]).to have_key(:street)
-      expect(json[:data][:attributes]).to have_key(:city)
-      expect(json[:data][:attributes]).to have_key(:county)
-      expect(json[:data][:attributes]).to have_key(:state)
-      expect(json[:data][:attributes]).to have_key(:zip)
-      expect(json[:data][:attributes]).to have_key(:lat)
-      expect(json[:data][:attributes]).to have_key(:lon)
-      expect(json[:data][:attributes]).to have_key(:vendor_count)
+      expect(market_deets[:data]).to have_key(:id)
+      expect(market_deets[:data]).to have_key(:type)
+      expect(market_deets[:data]).to have_key(:attributes)
+      expect(market_deets[:data][:attributes]).to be_a Hash
+      expect(market_deets[:data][:attributes]).to have_key(:name)
+      expect(market_deets[:data][:attributes]).to have_key(:street)
+      expect(market_deets[:data][:attributes]).to have_key(:city)
+      expect(market_deets[:data][:attributes]).to have_key(:county)
+      expect(market_deets[:data][:attributes]).to have_key(:state)
+      expect(market_deets[:data][:attributes]).to have_key(:zip)
+      expect(market_deets[:data][:attributes]).to have_key(:lat)
+      expect(market_deets[:data][:attributes]).to have_key(:lon)
+      expect(market_deets[:data][:attributes]).to have_key(:vendor_count)
       
-      expect(json[:data][:attributes][:name]).to eq(@market1.name)
-      expect(json[:data][:attributes][:street]).to eq(@market1.street)
-      expect(json[:data][:attributes][:city]).to eq(@market1.city)
-      expect(json[:data][:attributes][:county]).to eq(@market1.county)
-      expect(json[:data][:attributes][:state]).to eq(@market1.state)
-      expect(json[:data][:attributes][:zip]).to eq(@market1.zip)
-      expect(json[:data][:attributes][:lat]).to eq(@market1.lat)
-      expect(json[:data][:attributes][:lon]).to eq(@market1.lon)
-      expect(json[:data][:attributes][:vendor_count]).to eq(@market1.vendor_count)
+      expect(market_deets[:data][:attributes][:name]).to eq(@market1.name)
+      expect(market_deets[:data][:attributes][:street]).to eq(@market1.street)
+      expect(market_deets[:data][:attributes][:city]).to eq(@market1.city)
+      expect(market_deets[:data][:attributes][:county]).to eq(@market1.county)
+      expect(market_deets[:data][:attributes][:state]).to eq(@market1.state)
+      expect(market_deets[:data][:attributes][:zip]).to eq(@market1.zip)
+      expect(market_deets[:data][:attributes][:lat]).to eq(@market1.lat)
+      expect(market_deets[:data][:attributes][:lon]).to eq(@market1.lon)
+      expect(market_deets[:data][:attributes][:vendor_count]).to eq(@market1.vendor_count)
     end
 
     it 'If an invalid request, returns an error message and 404' do
       get "/api/v0/markets/#{1000000}"
 
-      json = JSON.parse(response.body, symbolize_names: true)
+      error_deets = JSON.parse(response.body, symbolize_names: true)
 
-      expect(json).to have_key(:errors)
-      expect(json[:errors]).to be_an Array
-      expect(json[:errors][0]).to be_a Hash
-      expect(json[:errors][0]).to have_key(:detail)
-      expect(json[:errors][0][:detail]).to be_a String
-      expect(json[:errors][0][:detail]).to eq("Couldn't find Market with 'id'=1000000")
+      expect(error_deets).to have_key(:errors)
+      expect(error_deets[:errors]).to be_an Array
+      expect(error_deets[:errors][0]).to be_a Hash
+      expect(error_deets[:errors][0]).to have_key(:detail)
+      expect(error_deets[:errors][0][:detail]).to be_a String
+      expect(error_deets[:errors][0][:detail]).to eq("Couldn't find Market with 'id'=1000000")
 
     end
   end
