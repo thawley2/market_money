@@ -10,6 +10,7 @@ RSpec.describe 'Markets API' do
       get '/api/v0/markets'
 
       expect(response).to be_successful
+      expect(response.status).to eq(200)
 
       markets_deets = JSON.parse(response.body, symbolize_names: true)
       
@@ -49,6 +50,7 @@ RSpec.describe 'Markets API' do
       get "/api/v0/markets/#{@market1.id}"
       
       expect(response).to be_successful
+      expect(response.status).to eq(200)
       
       market_deets = JSON.parse(response.body, symbolize_names: true)
       
@@ -82,6 +84,8 @@ RSpec.describe 'Markets API' do
     it 'If an invalid request, returns an error message and 404' do
       get "/api/v0/markets/#{1000000}"
 
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
       error_deets = JSON.parse(response.body, symbolize_names: true)
 
       expect(error_deets).to have_key(:errors)

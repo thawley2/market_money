@@ -10,6 +10,7 @@ RSpec.describe 'Vendors API' do
       get "/api/v0/markets/#{@market1.id}/vendors"
 
       expect(response).to be_successful
+      expect(response.status).to eq(200)
 
       vendors = JSON.parse(response.body, symbolize_names: true)
 
@@ -40,6 +41,7 @@ RSpec.describe 'Vendors API' do
       get "/api/v0/markets/1000000/vendors"
 
       expect(response).to_not be_successful
+      expect(response.status).to eq(404)
 
       error_deets = JSON.parse(response.body, symbolize_names: true)
 
@@ -58,6 +60,7 @@ RSpec.describe 'Vendors API' do
       get "/api/v0/vendors/#{@vendor1.id}"
 
       expect(response).to be_successful
+      expect(response.status).to eq(200)
 
       vendor_deets = JSON.parse(response.body, symbolize_names: true)
 
@@ -86,6 +89,7 @@ RSpec.describe 'Vendors API' do
       get '/api/v0/vendors/1000000'
 
       expect(response).to_not be_successful
+      expect(response.status).to eq(404)
 
       error_deets = JSON.parse(response.body, symbolize_names: true)
 
@@ -112,7 +116,7 @@ RSpec.describe 'Vendors API' do
       post "/api/v0/vendors", headers: headers, params: JSON.generate(vendor: vendor_params)
         
       expect(response).to be_successful
-      expect(response.status).to eq 201
+      expect(response.status).to eq(201)
 
       vendor_deets = JSON.parse(response.body, symbolize_names: true)
 
@@ -289,7 +293,6 @@ RSpec.describe 'Vendors API' do
       expect(vendor_deets[:errors][0]).to have_key(:detail)
       expect(vendor_deets[:errors][0][:detail]).to be_a String
       expect(vendor_deets[:errors][0][:detail]).to eq("Couldn't find Vendor with 'id'=1000000")
-
     end
   end
 end
