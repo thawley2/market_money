@@ -11,12 +11,7 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def create
-    vendor = Vendor.new(vendor_params)
-    if vendor.save
-      render json: VendorSerializer.new(vendor), status: 201
-    else
-      render json: ErrorSerializer.new_serialize(vendor.errors.full_messages), status: 400
-    end
+    render json: VendorSerializer.new(Vendor.create!(vendor_params)), status: 201
   end
 
   private
