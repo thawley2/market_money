@@ -1,6 +1,7 @@
 class Api::V0::Markets::SearchesController < ApplicationController
 
   def show
+    # require 'pry'; binding.pry
     if params.key?(:state) && params.key?(:city) && params.key?(:name)
       serialize(Market.search_state_city_name(params))
     elsif params.key?(:state) && params.key?(:city)
@@ -9,10 +10,10 @@ class Api::V0::Markets::SearchesController < ApplicationController
       serialize(Market.search_state_name(params))
     elsif params.key?(:state)
       serialize(Market.search_state(params))
-    elsif params.key?(:name)
+    elsif params.key?(:name) && !params.key?(:city)
       serialize(Market.search_name(params))
     else
-      render json: ErrorSerializer("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")
+      render json: ErrorSerializer.missing_search_parameters, status: 422
     end
   end
 
