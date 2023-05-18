@@ -40,6 +40,42 @@ RSpec.describe Market, type: :model do
           expect(Market.search_name(params3)).to eq([@market1])
         end
       end
+
+      describe '::search_state_name' do
+        it 'can return a list of vendors from a name query, case insensitive' do
+          market_data
+          params = {name: 'Walmart', state: 'Oklahoma'}
+          params2 = {name: 'walmart', state: 'oklahoma'}
+          params3 = {name: 'mart', state: 'OK'}
+          expect(Market.search_state_name(params)).to eq([@market1])
+          expect(Market.search_state_name(params2)).to eq([@market1])
+          expect(Market.search_state_name(params3)).to eq([@market1])
+        end
+      end
+
+      describe '::search_state_city' do
+        it 'can return a list of vendors from a name query, case insensitive' do
+          market_data
+          params = {city: 'Denver', state: 'Colorado'}
+          params2 = {city: 'denver', state: 'colorado'}
+          params3 = {city: 'denv', state: 'CO'}
+          expect(Market.search_state_city(params)).to eq([@market3, @market6])
+          expect(Market.search_state_city(params2)).to eq([@market3, @market6])
+          expect(Market.search_state_city(params3)).to eq([@market3, @market6])
+        end
+      end
+
+      describe '::search_state_city_name' do
+        it 'can return a list of vendors from a name query, case insensitive' do
+          market_data
+          params = {city: 'Denver', state: 'Colorado', name: 'Joes'}
+          params2 = {city: 'denver', state: 'colorado', name: 'joes'}
+          params3 = {city: 'denv', state: 'CO', name: 'Jo'}
+          expect(Market.search_state_city_name(params)).to eq([@market6])
+          expect(Market.search_state_city_name(params2)).to eq([@market6])
+          expect(Market.search_state_city_name(params3)).to eq([@market6])
+        end
+      end
     end
   end
 end
