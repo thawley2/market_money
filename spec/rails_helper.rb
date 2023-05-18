@@ -21,6 +21,7 @@ def market_data
   @market1 = create(:market, city: 'Ponca City', state: 'Oklahoma', name: 'Walmart')
   @market2 = create(:market, city: 'Edmond', state: 'Oklahoma', name: 'Target')
   @market3 = create(:market, city: 'Denver', state: 'Colorado', name: 'King Super')
+  @market6 = create(:market, city: 'Denver', state: 'Colorado', name: 'Joes')
   @market4 = create(:market, city: 'Littleton', state: 'Colorado', name: 'Farmers')
   @market5 = create(:market, city: 'San Jose', state: 'California', name: 'Sprouts')
 end
