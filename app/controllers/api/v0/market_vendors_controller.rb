@@ -5,7 +5,11 @@ class Api::V0::MarketVendorsController < ApplicationController
   end
 
   def destroy
-    MarketVendor.find_by(market_vendor_params).destroy
+    begin
+      MarketVendor.find_by!(market_vendor_params).destroy
+    rescue ActiveRecord::RecordNotFound
+      render json: {errors: [{detail: "No MarketVendor with market_id=#{params[:mv][:market_id]} AND vendor_id=#{params[:mv][:vendor_id]} exists"}]}, status: :not_found
+    end
   end
 
   private
