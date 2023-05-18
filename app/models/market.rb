@@ -5,4 +5,12 @@ class Market < ApplicationRecord
   def vendor_count
     vendors.count
   end
+
+  def self.search_state(params)
+    where("state ILIKE ?", "%#{params[:state]}%")
+  end
+
+  def self.search_name(params)
+    where("name ILIKE ?", "%#{params[:name]}%")
+  end
 end
