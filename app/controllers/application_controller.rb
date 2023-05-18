@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
       else
         not_found(error)
       end
-    elsif params.key?(:mv)
+    elsif params.key?(:market_vendor)
       not_unique
     else
       field_blank(error)
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
     end
 
     def not_unique
-      render json: ErrorSerializer.serialize_uniq(params[:mv][:market_id], params[:mv][:vendor_id]), status: 422
+      render json: ErrorSerializer.serialize_uniq(params[:market_vendor][:market_id], params[:market_vendor][:vendor_id]), status: 422
     end
 
     def field_blank(error)

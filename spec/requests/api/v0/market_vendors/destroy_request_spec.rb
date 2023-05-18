@@ -15,7 +15,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
         }
       headers = {"CONTENT_TYPE" => "application/json"}
-      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to be_successful
       expect(response.status).to eq(204)
@@ -36,7 +36,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
         }
       headers = {"CONTENT_TYPE" => "application/json"}
-      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
@@ -58,7 +58,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
         }
       headers = {"CONTENT_TYPE" => "application/json"}
-      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
@@ -80,7 +80,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
         }
       headers = {"CONTENT_TYPE" => "application/json"}
-      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      delete "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)

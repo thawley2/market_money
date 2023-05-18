@@ -15,7 +15,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor5.id}"
       }
       headers = {"CONTENT_TYPE" => "application/json"}
-      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
       
       expect(response).to be_successful
       expect(response.status).to eq(201)
@@ -41,7 +41,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor5.id}"
       }
       headers = {"CONTENT_TYPE" => "application/json"}
-      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       get "/api/v0/markets/#{@market2.id}/vendors"
 
@@ -58,7 +58,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor5.id}"
       }
       headers = {"CONTENT_TYPE" => "application/json"}
-      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
@@ -80,7 +80,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
       }
       headers = {"CONTENT_TYPE" => "application/json"}
-      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -102,7 +102,7 @@ RSpec.describe 'MarketVendor API' do
         "vendor_id": "#{@vendor1.id}"
       }
       headers = {"CONTENT_TYPE" => "application/json"}
-      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(mv: mv_params)
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: mv_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
