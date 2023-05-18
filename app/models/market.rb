@@ -13,4 +13,16 @@ class Market < ApplicationRecord
   def self.search_name(params)
     where("name ILIKE ?", "%#{params[:name]}%")
   end
+
+  def self.search_state_name(params)
+    where("state ILIKE ?", "%#{params[:state]}%").where("name ILIKE ?", "%#{params[:name]}%")
+  end
+
+  def self.search_state_city(params)
+    where("city ILIKE ?", "%#{params[:city]}%").where("state ILIKE ?", "%#{params[:state]}%")
+  end
+
+  def self.search_state_city_name(params)
+    where("city ILIKE ?", "%#{params[:city]}%").where("state ILIKE ?", "%#{params[:state]}%").where("name ILIKE ?", "%#{params[:name]}%")
+  end
 end
