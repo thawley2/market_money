@@ -8,6 +8,10 @@ class Api::V0::MarketsController < ApplicationController
       render json: MarketSerializer.new(Market.find(params[:id]))
   end
 
+  def atms
+  
+  end
+
   def search
     if params.key?(:state) && params.key?(:city) && params.key?(:name)
       serialize(Market.search_state_city_name(params))
