@@ -5,8 +5,12 @@ class ApplicationController < ActionController::API
   private
   def record_invalid(error)
     if error.to_s.include?('exist')
-      not_found(error)
-    elsif params.has_key?(:mv)
+      if error.to_s.include?('blank')
+        field_blank(error)
+      else
+        not_found(error)
+      end
+    elsif params.key?(:mv)
       not_unique
     else
       field_blank(error)
