@@ -1,13 +1,7 @@
 class Api::V0::VendorsController < ApplicationController
-  
-  def index
-      market = Market.find(params[:market_id])
-      render json: VendorSerializer.new(market.vendors)
-  end
-
+  before_action :find_vendor, only: [:show, :destroy, :update]
   def show
-      vendor = Vendor.find(params[:id])
-      render json: VendorSerializer.new(Vendor.find(params[:id]))
+      render json: VendorSerializer.new(@vendor)
   end
 
   def create
@@ -15,18 +9,20 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def destroy
-    vendor = Vendor.find(params[:id])
-    vendor.destroy
+    @vendor.destroy
   end
 
   def update
-    vendor = Vendor.find(params[:id])
-    vendor.update!(vendor_params)
-    render json: VendorSerializer.new(vendor)
+    @vendor.update!(vendor_params)
+    render json: VendorSerializer.new(@vendor)
   end
 
   private
     def vendor_params
       params.require(:vendor).permit(:name, :description, :contact_name, :contact_phone, :credit_accepted)
+    end
+
+    def find_vendor
+      @vendor = Vendor.find(params[:id])
     end
 end
