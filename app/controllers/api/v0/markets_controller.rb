@@ -15,13 +15,10 @@ class Api::V0::MarketsController < ApplicationController
 
   def search
     search = SearchService.new(params)
-    require 'pry'; binding.pry
-    if search.determine_search
+    if search.valid_search
       render json: MarketSerializer.new(search.determine_search)
     else
       render json: ErrorSerializer.missing_search_parameters, status: 422
     end
   end
-
-  
 end

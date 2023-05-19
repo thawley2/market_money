@@ -4,7 +4,6 @@ class SearchService
   end
 
   def determine_search
-    # require 'pry'; binding.pry
     if state_city_name
       Market.search_state_city_name(@params)
     elsif state_city
@@ -15,25 +14,24 @@ class SearchService
       Market.search_state(@params)
     elsif name_no_city
       Market.search_name(@params)
+    end
+  end
+
+  def valid_search
+    if state_city_name
+      true
+    elsif state_city
+      true
+    elsif state_name
+      true
+    elsif state
+      true
+    elsif name_no_city
+      true
     else
       false
-    end
-
-    def valid_search
-      if state_city_name
-        true
-      elsif state_city
-        true
-      elsif state_name
-        true
-      elsif state
-        true
-      elsif name_no_city
-        true
-      else
-        false
-      end 
-    end
+    end 
+  end
 
     private
     
@@ -66,5 +64,4 @@ class SearchService
         return true
       end
     end
-  end
 end
