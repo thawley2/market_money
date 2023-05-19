@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resource :market_vendors, only: [:destroy]
       resources :markets, only: [:index, :show] do
         resources :vendors, only: [:index], controller: 'markets/vendors'
-        get '/nearest_atms', to: 'markets#atms'
+        get '/nearest_atms', to: 'markets#find_atms'
       end
     end
   end

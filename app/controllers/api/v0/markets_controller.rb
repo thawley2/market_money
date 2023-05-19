@@ -8,7 +8,7 @@ class Api::V0::MarketsController < ApplicationController
       render json: MarketSerializer.new(Market.find(params[:id]))
   end
 
-  def atms
+  def find_atms
     market = Market.find(params[:market_id])
     render json: AtmSerializer.new(AtmFacade.new(market).atms)
   end
