@@ -22,7 +22,7 @@ class AtmFacade
   def format_atm_data(data)
     format = {
       name: data[:poi][:name],
-      address: format_address(data[:address]),
+      address: data[:address][:freeformAddress],
       lat: data[:position][:lat],
       lon: data[:position][:lat],
       distance: format_distance(data[:dist])
@@ -31,9 +31,5 @@ class AtmFacade
 
   def format_distance(meter)
     miles = meter/1609
-  end
-
-  def format_address(addr)
-    address = "#{addr[:streetNumber]} #{addr[:streetName]}, #{addr[:municipality]}, #{addr[:countrySubdivision]} #{addr[:postalCode]}"
   end
 end
