@@ -228,15 +228,33 @@ RSpec.describe 'Markets Search API' do
       expect(first_market[:lon]).to eq(@market6.lon)
       expect(first_market[:vendor_count]).to eq(0)
     end
-
+  end
+  
+  describe 'Sad Path errors' do
     it 'Sends an error message if just a city or city and name are passed in' do
       headers = {"CONTENT_TYPE" => "application/json"}
       get "/api/v0/markets/search?city=denver&name=joes", headers: headers
-
+      
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
       error_deets = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error_deets).to have_key(:errors)
+      expect(error_deets[:errors]).to be_an Array
+      expect(error_deets[:errors][0]).to be_a Hash
+      expect(error_deets[:errors][0]).to have_key(:detail)
+      expect(error_deets[:errors][0][:detail]).to be_a String
+      expect(error_deets[:errors][0][:detail]).to eq("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")
+    end
 
+    it 'Sends an error message if no query is received' do
+      headers = {"CONTENT_TYPE" => "application/json"}
+      get "/api/v0/markets/search", headers: headers
+      
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+      error_deets = JSON.parse(response.body, symbolize_names: true)
+      
       expect(error_deets).to have_key(:errors)
       expect(error_deets[:errors]).to be_an Array
       expect(error_deets[:errors][0]).to be_a Hash
