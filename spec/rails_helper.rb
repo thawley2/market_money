@@ -18,10 +18,10 @@ def test_data
 end
 
 def market_data
-  @market1 = create(:market, city: 'Ponca City', state: 'Oklahoma', name: 'Walmart')
+  @market1 = create(:market, city: 'Ponca City', state: 'Oklahoma', name: 'Walmart', lat: '35.077529', lon: '-106.600449')
   @market2 = create(:market, city: 'Edmond', state: 'Oklahoma', name: 'Target')
   @market3 = create(:market, city: 'Denver', state: 'Colorado', name: 'King Super')
-  @market6 = create(:market, city: 'Denver', state: 'Colorado', name: 'Joes', lat: '39.547082', lon: '-104.999648')
+  @market6 = create(:market, city: 'Denver', state: 'Colorado', name: 'Joes', lat: '35.077529', lon: '-106.600449')
   @market4 = create(:market, city: 'Littleton', state: 'Colorado', name: 'Farmers')
   @market5 = create(:market, city: 'San Jose', state: 'California', name: 'Sprouts')
 end
@@ -97,7 +97,7 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
-  config.filter_sensitive_data('<TMBD_API_KEY>') { ENV['TMBD_API_KEY'] }
+  config.filter_sensitive_data('<tomtom_api_key>') { ENV['TomTom_API_KEY'] }
   config.configure_rspec_metadata!
 end
 
