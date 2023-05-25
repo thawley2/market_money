@@ -28,5 +28,4 @@ class ApplicationController < ActionController::API
     def field_blank(error)
       render json: ErrorSerializer.serialize(error), status: :bad_request
     end
-
 end
