@@ -1,4 +1,4 @@
-# Market Money
+# Market Money (README is currently in progress)
 
 You are working for a company developing an interface to help people find sustainable and local alternatives for their lifestyle in their area. One of their features to encourage supporting local growers/crafters/etc., is a Farmers Market lookup. Your company uses a Micro Service Architecture, and needs you to build out the service that is responsible for providing functionality for Farmers Market & Vendors.
 
